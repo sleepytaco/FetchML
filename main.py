@@ -21,7 +21,7 @@ def main():
     # Set up the tokenizer, load and tokenize the sentences dataset
     max_length = 128  # Max sentence length to the transformer
     tokenizer = BertTokenizer.from_pretrained("bert-base-cased")  # Using BERT model based tokenizer
-    sentences = args.sentence if args.sentence else load_sentences("data/sentences.txt")
+    sentences = [args.sentence] if args.sentence else load_sentences("data/sentences.txt")
     input_ids, attention_mask = tokenize_sentences(sentences, tokenizer, max_length=max_length)
 
     if args.task == 1:
