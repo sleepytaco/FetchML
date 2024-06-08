@@ -1,6 +1,6 @@
 import argparse
 from transformers import BertTokenizer
-from model.sentence_transformer import SentenceTransformer
+from model.sentence_transformer import SentenceTransformer, MultiTaskModel
 from model.utils import load_sentences, tokenize_sentences
 
 
@@ -13,6 +13,10 @@ def make_parser():
 
 def main():
     args = make_parser().parse_args()
+
+    # For task 2 - multitask model
+    num_classes = 3
+    num_sentiments = 2
 
     # Set up the tokenizer, load and tokenize the sentences dataset
     max_length = 128  # Max sentence length to the transformer
@@ -29,7 +33,13 @@ def main():
         print("Embeddings shape: ", embeddings.shape)
         print("Embeddings: ", embeddings)
     elif args.task == 2:
-        pass
+        model = MultiTaskModel(num_classes, num_sentiments)
+
+        # Forward pass input tokenized sentences to get outputs of the two task heads
+        classification_probs, sentiment_probs = model(input_ids, attention_mask)
+
+        print("Classification Probabilities: ", classification_probs)
+        print("Sentiment Probabilities: ", sentiment_probs)
     else:
         print(f"Unknown task specified: {args.task}")
 
