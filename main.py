@@ -32,7 +32,7 @@ def main():
 
         print("")
         print("Number of sentences passed as input: ", len(sentences))
-        print("Embeddings shape: ", embeddings.shape)
+        print("Embeddings Output Shape: ", embeddings.shape)
         print("Embeddings Output: ", embeddings)
         print("")
 
@@ -48,8 +48,8 @@ def main():
 
         print("")
         print("Number of sentences passed as input: ", len(sentences))
-        print(f"Classification Probabilities ({num_classes} classes): ", classification_probs)
-        print(f"Sentiment Probabilities: ({num_sentiments} classes):", sentiment_probs)
+        print(f"Number of sentence classification (task A) labels: ", num_classes)
+        print(f"Number of sentiment analysis (task B) labels: ", num_sentiments)
         print("")
 
         for i in range(len(sentences)):
