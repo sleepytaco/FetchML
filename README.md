@@ -49,9 +49,34 @@ docker build -t fetch-ml .
 Once the container is built, you can specify which task to run as an argument to the `docker run` command. For example, run the following to run task 1:
 
 ```shell
-docker run --rm fetch-ml --task=1 --sentence="Hello world!"
+docker run --rm fetch-ml --task=1 --sentence='Hello world!'
 ```
 
 The `--sentence` argument is optional. If none is specified, the sentences from the `data/sentences.txt` file are passed as input to the transformer model.
 
 
+### Sample Outputs
+
+```shell
+> docker run --rm fetch-ml --task=1 --sentence='Hello world!'
+
+Number of sentences passed as input:  1
+Embeddings Output Shape:  torch.Size([1, 768])
+Embeddings Output:  tensor([[ 2.0758e-01,  2.7646e-01,  4.1521e-01, -3.9702e-02, -2.8754e-02,
+          ... -1.4693e-01,  3.6201e-01, -8.6430e-02]], grad_fn=<MeanBackward1>)
+
+Sentence: Hello world
+Embedding (truncated to first 5 values): tensor([ 0.2076,  0.2765,  0.4152, -0.0397, -0.0288], grad_fn=<SliceBackward0>)
+```
+
+```shell
+> docker run --rm fetch-ml --task=2 --sentence='Hello world!'
+
+Number of sentences passed as input:  1
+Number of sentence classification (task A) labels:  3
+Number of sentiment analysis (task B) labels:  2
+
+Sentence: Hello world!
+Sentence Classification Probabilities: tensor([0.3069, 0.3547, 0.3384], grad_fn=<SelectBackward0>)
+Sentiment Analysis Probabilities: tensor([0.4334, 0.5666], grad_fn=<SelectBackward0>)
+```
